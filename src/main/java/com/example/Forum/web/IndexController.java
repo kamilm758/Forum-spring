@@ -48,7 +48,7 @@ public class IndexController {
         model.addAttribute("choosenThread", new ThreadViewModel());
         model.addAttribute("Cat", new CategoryModel());
 
-        return "home/index";
+        return "home/index.html";
     }
 
 

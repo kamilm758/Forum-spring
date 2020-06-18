@@ -26,7 +26,7 @@ public class UserController {
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
-        return "registration";
+        return "registration.jsp";
     }
 
     @PostMapping("/registration")
@@ -34,7 +34,7 @@ public class UserController {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("registration");
+            return new ModelAndView("registration.jsp");
         }
 
         userService.save(userForm);
@@ -52,11 +52,6 @@ public class UserController {
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
 
-        return "login";
-    }
-
-    @GetMapping({"/welcome"})
-    public String welcome(Model model) {
-        return "welcome";
+        return "login.jsp";
     }
 }

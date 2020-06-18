@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -22,28 +23,28 @@
             <button class="btn"><i class="fa fa-plus"></i> Nowy wątek</button>
         </a>
         <a th:href="@{/category/edit/{categoryId} (categoryId=${category.category.getCategoryId()})}" >
-        <button class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edytuj </button>
+            <button class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edytuj </button>
         </a>
         <div class="catname"><span th:text="${category.category.getCategoryName()}"> Title </span></div>
         <div class="catdesc"><span th:text="${category.category.getCategoryDescription()}"> Author </span></div>
         <div th:each="thread : ${category.threads}">
             <a th:href="@{/thread/show/{threadId} (threadId=${thread.getThreadId()})}" >
-            <div class="thread" >
-                <div class="threadname"><span th:text="${thread.getThreadName()}"></span> </div>
-                <div class="threaddate"><span th:text="${thread.getCreationDate()}"></span> </div>
-                <div class="threadauthor"><span th:text="${thread.getAuthorId()}"></span> </div>
-                <div class="del">
-                <a  th:href="@{/thread/delete/{categoryId} (categoryId=${thread.getThreadId()})}" >
-                    <span class="deltxt" >usuń</span>
-                </a>
-                    <a  th:href="@{/thread/edit/{categoryId} (categoryId=${thread.getThreadId()})}" >
-                        <span class="deltxt" >edytuj</span>
-                    </a>
+                <div class="thread" >
+                    <div class="threadname"><span th:text="${thread.getThreadName()}"></span> </div>
+                    <div class="threaddate"><span th:text="${thread.getCreationDate()}"></span> </div>
+                    <div class="threadauthor"><span th:text="${thread.getAuthorId()}"></span> </div>
+                    <div class="del">
+                        <a  th:href="@{/thread/delete/{categoryId} (categoryId=${thread.getThreadId()})}" >
+                            <span class="deltxt" >usuń</span>
+                        </a>
+                        <a  th:href="@{/thread/edit/{categoryId} (categoryId=${thread.getThreadId()})}" >
+                            <span class="deltxt" >edytuj</span>
+                        </a>
+                    </div>
                 </div>
-            </div>
             </a>
 
-    </div>
+        </div>
     </div>
 
 </div>

@@ -43,7 +43,7 @@ public class CategoryController {
         categoryModel.setCategoryName(category.getCategoryName());
         categoryModel.setCategoryDescription(category.getCategoryDescription());
         model.addAttribute("model", categoryModel);
-        return"category/edit";
+        return"category/edit.html";
 
     }
 }
