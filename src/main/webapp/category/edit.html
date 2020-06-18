@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../static/css/index.css" th:href="@{/css/index.css}" rel="stylesheet" />
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div th:replace="layout/main :: header"></div>
+<div class="catwrap">
+    <form action="/category/create"  th:object="${model}" method="post">
+        <input hidden type="text" id="idCat" name="idCat" th:value="model.categoryId" th:field="*{categoryId}" />
+        <div class="inp">
+            <label for="catname">Nazwa</label>
+            <input type="text" id="catname" name="catname"  th:field="*{categoryName}" />
+        </div>
+        <div class="inp">
+            <label for="catdesc">Opis</label>
+            <textarea id="catdesc" name="catdesc"  th:field="*{categoryDescription}" />
+        </div>
+        <button type=submit class="btn"><i class="fa fa-check"></i> gotowe </button>
+    </form>
+</div>
+</body>
+</html>
