@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ThreadRepo  extends JpaRepository<Thread, Long> {
     Thread findByThreadId(Long id);
+
 }

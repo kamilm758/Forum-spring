@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th  ="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -12,10 +13,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<button id="myBtn" type=submit class="btn1"><i class="fa fa-plus"></i> nowa kategoria </button>
+<button sec:authorize="hasAuthority('Administrator')" id="myBtn" type=submit class="btn1"><i class="fa fa-plus"></i> nowa kategoria </button>
 <div th:replace="layout/main :: header"></div>
 <div class="catwrap">
     <div class="category" th:each="category : ${categories}">
+        <div sec:authorize="hasAuthority('Administrator')">
         <a th:href="@{/category/delete/{categoryId} (categoryId=${category.category.getCategoryId()})}" >
             <button class="btndanger"><i class="fa fa-times" aria-hidden="true"></i> Usuń </button>
         </a>
@@ -25,6 +27,7 @@
         <a th:href="@{/category/edit/{categoryId} (categoryId=${category.category.getCategoryId()})}" >
             <button class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edytuj </button>
         </a>
+        </div>
         <div class="catname"><span th:text="${category.category.getCategoryName()}"> Title </span></div>
         <div class="catdesc"><span th:text="${category.category.getCategoryDescription()}"> Author </span></div>
         <div th:each="thread : ${category.threads}">
@@ -32,8 +35,8 @@
                 <div class="thread" >
                     <div class="threadname"><span th:text="${thread.getThreadName()}"></span> </div>
                     <div class="threaddate"><span th:text="${thread.getCreationDate()}"></span> </div>
-                    <div class="threadauthor"><span th:text="${thread.getAuthorId()}"></span> </div>
-                    <div class="del">
+                    <div class="threadauthor"><span th:text="${thread.author.getUsername()}"></span> </div>
+                    <div class="del" sec:authorize="hasAuthority('Administrator')">
                         <a  th:href="@{/thread/delete/{categoryId} (categoryId=${thread.getThreadId()})}" >
                             <span class="deltxt" >usuń</span>
                         </a>

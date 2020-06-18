@@ -3,12 +3,16 @@ package com.example.Forum.web;
 import com.example.Forum.model.Category;
 import com.example.Forum.model.Message;
 import com.example.Forum.model.Thread;
+import com.example.Forum.model.User;
 import com.example.Forum.model.helpers.CategoryModel;
 import com.example.Forum.model.helpers.MessageModel;
 import com.example.Forum.model.helpers.ThreadModel;
 import com.example.Forum.repository.MessageRepo;
 import com.example.Forum.service.CategoryService;
 import com.example.Forum.service.ThreadService;
+import com.example.Forum.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +28,14 @@ public class ThreadController {
     private ThreadService threadService;
     private CategoryService categoryService;
     private IndexController indexController;
+    private UserService userService;
 
-
-    public ThreadController(MessageRepo messageRepo, ThreadService threadService, CategoryService categoryService, IndexController indexController) {
+    public ThreadController(MessageRepo messageRepo, ThreadService threadService, UserService userService, CategoryService categoryService, IndexController indexController) {
         this.messageRepo = messageRepo;
         this.threadService = threadService;
         this.categoryService = categoryService;
         this.indexController = indexController;
+        this.userService = userService;
     }
 
     @RequestMapping("/show/{threadId}")
@@ -40,7 +45,7 @@ public class ThreadController {
         Thread thread = threadService.getThreadById(threadId);
 
         if(thread !=null) {
-            threadModel.setCategoryId(thread.getCategoryId());
+            threadModel.setCategoryId(thread.getCategory().getCategoryId());
             threadModel.setThreadContent(thread.getThreadContent());
             threadModel.setThreadTopic(thread.getThreadName());
 
@@ -66,14 +71,19 @@ public class ThreadController {
 
     @RequestMapping("/create")
     public String createNewThread(@ModelAttribute(value = "model") ThreadModel threadModel, Model model) {
+        String username =((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userService.findByUsername(username);
+        Category category = categoryService.getCategoryById(threadModel.getCategoryId());
 
-        threadService.createThread(threadModel);
+        threadService.createThread(threadModel,category, user);
 
         return indexController.getAllCategories(model);
     }
     @RequestMapping("/delete/{threadId}")
     public String deleteThread (@PathVariable(value = "threadId") Long id, Model model){
-        threadService.deleteThread(id);
+        String username =((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        User user = userService.findByUsername(username);
+        threadService.deleteThread(id,user);
         return indexController.getAllCategories(model);
     }
 
@@ -92,9 +102,9 @@ public class ThreadController {
         }
 
         ThreadModel threadModel =new ThreadModel();
-        threadModel.setCurrentCategory(thread.getCategoryId());
+        threadModel.setCurrentCategory(thread.getCategory().getCategoryId());
         threadModel.setCategoryModels(categoryModels);
-        threadModel.setCategoryId(thread.getCategoryId());
+        threadModel.setCategoryId(thread.getCategory().getCategoryId());
         threadModel.setThreadTopic(thread.getThreadName());
         threadModel.setThreadContent(thread.getThreadContent());
         threadModel.setThreadId(thread.getThreadId());
@@ -110,7 +120,7 @@ public class ThreadController {
         Thread thread = threadService.getThreadById(threadId);
 
         if(thread !=null) {
-            threadModel.setCategoryId(thread.getCategoryId());
+            threadModel.setCategoryId(thread.getCategory().getCategoryId());
             threadModel.setThreadContent(thread.getThreadContent());
             threadModel.setThreadTopic(thread.getThreadName());
 
@@ -125,9 +135,9 @@ public class ThreadController {
             return "home/index";
     }
 
-    @RequestMapping("/report/{threadId}")
-    public String reportThread (@PathVariable(value = "threadId") Long id, Model model){
-        threadService.deleteThread(id);
-        return indexController.getAllCategories(model);
-    }
+//    @RequestMapping("/report/{threadId}")
+//    public String reportThread (@PathVariable(value = "threadId") Long id, Model model){
+//        threadService.deleteThread(id);
+//        return indexController.getAllCategories(model);
+//    }
 }

@@ -1,5 +1,6 @@
 package com.example.Forum.service;
 
+import com.example.Forum.model.Role;
 import com.example.Forum.model.User;
 import com.example.Forum.repository.RoleRepository;
 import com.example.Forum.repository.UserRepository;
@@ -20,8 +21,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
+        HashSet<Role> set = new HashSet<>();
+        set.add(roleRepository.findByName("User"));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(new HashSet<>(roleRepository.findAll()));
+        user.setRoles(set);
         userRepository.save(user);
     }
 

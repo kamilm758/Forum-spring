@@ -14,9 +14,12 @@ Thread {
     private String threadName;
     private String threadContent;
     private Date creationDate;
-    private Long authorId;
-    private Long categoryId;
-    private boolean threadState;
+
+    private boolean threadState=true;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private User author;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -57,21 +60,14 @@ Thread {
         this.creationDate = creationDate;
     }
 
-    public Long getAuthorId() {
-        return authorId;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public boolean isThreadState() {
         return threadState;
