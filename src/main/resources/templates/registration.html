@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../css/index.css" th:href="@{/css/index.css}" rel="stylesheet" />
+    <link href="../css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+<div class="catwrap">
+        <div class="form">
+            <form action="/registration"  th:object="${userForm}" method="post">
+                <div class="inp">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username"  th:field="*{username}" />
+                </div>
+                <div class="inp">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email"  th:field="*{email}" />
+                </div>
+                <div class="inp">
+                    <label for="password">Hasło</label>
+                    <input type="password" id="password" name="password"  th:field="*{password}" />
+                </div>
+                <div class="inp">
+                    <label for="passwordConfirm">Potwierdz hasło</label>
+                    <input type="password" id="passwordConfirm" name="passwordConfirm"  th:field="*{passwordConfirm}" />
+                </div>
+
+
+                <button type=submit class="btn"><i class="fa fa-check"></i> gotowe</button>
+            </form>
+        </div>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+</body>
+</html>

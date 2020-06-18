@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../static/css/index.css" th:href="@{/css/index.css}" rel="stylesheet" />
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<input hidden type="text" th:value="*{threadId}" th:field="*{threadId}" />
+<div th:replace="layout/main :: header"></div>
+<div class="catwrap">
+
+    <div class="post">
+
+        <div class="catname"><span th:text="${thread.getThreadTopic()}"> topic </span></div>
+        <div class="catname"><span th:text="${thread.getUserId()}"> Author </span></div>
+
+    </div>
+
+    <div class="category">
+        <div class="catname"><span th:text="${thread.getUserId()}"> Author </span></div>
+        <div class="catdesc"><span th:text="${thread.getThreadContent()}"> content </span></div>
+    </div>
+
+    <div class="category" th:each="msg : ${msgs}">
+        <div class="catname"><span th:text="${msg.getAuthorId()}"> Author </span></div>
+        <div class="catdesc"><span th:text="${msg.getMessageContent()}"> Msg </span></div>
+        <a th:href="@{/thread/report/{threadId} (threadId=${threadId})}" >
+
+            <button class="report"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                edytuj </button>
+        </a>
+        <a th:href="@{/thread/report/{threadId} (threadId=${threadId})}" >
+
+            <button class="report"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                Zgłoś </button>
+        </a>
+    </div>
+    <div class="catwrap">
+        <div class="form">
+            <form action="/message/new/"  th:object="${formModel}" method="post">
+                <input hidden type="text" th:value="authorId" th:field="*{authorId}" />
+                <input  hidden type="text"  th:value="threadId" th:field="*{threadId}" />
+                <div class="inp">
+                    <label for="topic">Treść wiadomości</label>
+                    <input type="text" id="topic" name="topic"  th:field="*{messageContent}" />
+                </div>
+
+                <button type=submit class="btn"><i class="fa fa-check"></i> dodaj komentarz</button>
+            </form>
+        </div>
+
+</div>
+</div>
+</body>
+</html>

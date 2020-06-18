@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../static/css/index.css" th:href="@{/css/index.css}" rel="stylesheet" />
+    <link href="../static/css/main.css" th:href="@{/css/main.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+
+<div th:replace="layout/main :: header"></div>
+<div class="catwrap">
+    <div class="form">
+    <form action="/thread/create"  th:object="${model}" method="post">
+        <input hidden type="text" id="idThre" name="idThre" th:value="model.threadId" th:field="*{threadId}" />
+        <input th:if="${!model.categoryModels.iterator().hasNext()}"  hidden type="text"  th:value="model.ccategoryId" th:field="*{categoryId}" />
+        <div class="inp">
+        <label for="topic">Temat</label>
+        <input type="text" id="topic" name="topic"  th:field="*{threadTopic}" />
+        </div>
+        <div class="inp">
+        <label for="content">Tresc</label>
+        <textarea id="content" name="content"  th:field="*{threadContent}" />
+        </div>
+        <select th:if="${model.categoryModels.iterator().hasNext()}" th:field="*{categoryId}">
+            <option th:each="cat : ${model.categoryModels}"
+                    th:value="${cat.categoryId}"
+                    th:utext="${cat.categoryName}"/>
+        </select>
+
+        <button type=submit class="btn"><i class="fa fa-check"></i> gotowe</button>
+    </form>
+</div>
+</div>
+</body>
+</html>

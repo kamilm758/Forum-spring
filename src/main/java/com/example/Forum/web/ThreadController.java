@@ -49,10 +49,10 @@ public class ThreadController {
             MessageModel messageModel = new MessageModel();
             messageModel.setThreadId(threadId);
             model.addAttribute("formModel", messageModel);
-            return "thread/thread.html";
+            return "thread/thread";
         }
         else
-            return "home/index.html";
+            return "home/index";
     }
 
     @GetMapping("new/{categoryId}")
@@ -61,7 +61,7 @@ public class ThreadController {
         threadModel.setCategoryId(categoryId);
 
         model.addAttribute("model", threadModel);
-        return"thread/create.html";
+        return"thread/create";
     }
 
     @RequestMapping("/create")
@@ -99,7 +99,7 @@ public class ThreadController {
         threadModel.setThreadContent(thread.getThreadContent());
         threadModel.setThreadId(thread.getThreadId());
         model.addAttribute("model", threadModel);
-        return"thread/create.html";
+        return"thread/create";
 
     }
 
@@ -119,10 +119,10 @@ public class ThreadController {
             MessageModel messageModel = new MessageModel();
             messageModel.setThreadId(threadId);
             model.addAttribute("formModel", messageModel);
-            return "thread/thread.html";
+            return "thread/thread";
         }
         else
-            return "home/index.html";
+            return "home/index";
     }
 
     @RequestMapping("/report/{threadId}")

@@ -29,8 +29,8 @@ public class ThreadService {
         if(threadModel.getThreadId()!=null)
             thread.setThreadId(threadModel.getThreadId());
         thread.setAuthorId(1L);
-        if(threadModel.getCategoryId()!=null)
-            thread.setCategoryId(threadModel.getCategoryId());
+//        if(threadModel.getCategoryId()!=null)
+//            thread.setCategoryId(1L);
 
         thread.setThreadContent(threadModel.getThreadContent());
         thread.setThreadName(threadModel.getThreadTopic());

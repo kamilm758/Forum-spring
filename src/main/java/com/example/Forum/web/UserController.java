@@ -22,36 +22,42 @@ public class UserController {
     @Autowired
     private UserValidator userValidator;
 
+    private IndexController indexController;
+    @Autowired
+    public UserController(IndexController indexController) {
+        this.indexController = indexController;
+    }
+
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
-        return "registration.jsp";
+        return "registration";
     }
 
     @PostMapping("/registration")
-    public ModelAndView registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult,Model model) {
         userValidator.validate(userForm, bindingResult);
 
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("registration.jsp");
+            return "registration";
         }
 
         userService.save(userForm);
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
 
-        return new ModelAndView("redirect:/home/index");
+        return indexController.getAllCategories(model);
     }
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
-        if (error != null)
+            if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
 
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
 
-        return "login.jsp";
+        return "login";
     }
 }

@@ -5,9 +5,12 @@ import com.example.Forum.model.helpers.CategoryModel;
 import com.example.Forum.service.CategoryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/category")
@@ -26,6 +29,11 @@ public class CategoryController {
         return indexController.getAllCategories(model);
     }
 
+    @GetMapping("/getall")
+    public String getAll (){
+        Iterable<Category> categories = categoryService.getAll();
+        return  "home/index";
+    }
 
     @RequestMapping("/delete/{categoryId}")
     public String deleteThread (@PathVariable(value = "categoryId") Long id, Model model){
@@ -43,7 +51,7 @@ public class CategoryController {
         categoryModel.setCategoryName(category.getCategoryName());
         categoryModel.setCategoryDescription(category.getCategoryDescription());
         model.addAttribute("model", categoryModel);
-        return"category/edit.html";
+        return"category/edit";
 
     }
 }

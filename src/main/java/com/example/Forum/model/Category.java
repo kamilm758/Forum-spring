@@ -1,18 +1,21 @@
 package com.example.Forum.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.List;
 
 @Entity
+
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long categoryId;
     private String categoryName;
     private String categoryDescription;
+
+    @OneToMany(mappedBy = "category")
+    private List<Thread> threadList;
 
     public Category(){
     }
@@ -31,6 +34,14 @@ public class Category {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public List<Thread> getThreadList() {
+        return threadList;
+    }
+
+    public void setThreadList(List<Thread> threadList) {
+        this.threadList = threadList;
     }
 
     public String getCategoryDescription() {
