@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>Getting Started: Serving Web Content</title>
@@ -28,18 +28,19 @@
     </div>
 
     <div class="category" th:each="msg : ${msgs}">
-        <div class="catname"><span th:text="${msg.getAuthorId()}"> Author </span></div>
+        <div class="catname"><span th:text="${msg.messageAuthor.getUsername()}"> Author </span></div>
         <div class="catdesc"><span th:text="${msg.getMessageContent()}"> Msg </span></div>
-        <a th:href="@{/thread/report/{threadId} (threadId=${threadId})}" >
-
+        <div sec:authorize="hasAuthority('Administrator')">
+        <a th:href="@{/message/edit/{messsageId} (messsageId=${msg.getMessageId()})}" >
             <button class="report"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                 edytuj </button>
         </a>
-        <a th:href="@{/thread/report/{threadId} (threadId=${threadId})}" >
-
+        </div>
+        <a th:href="@{/message/report/{messsageId} (messsageId=${msg.getMessageId()})}" >
             <button class="report"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                 Zgłoś </button>
         </a>
+
     </div>
     <div class="catwrap">
         <div class="form">

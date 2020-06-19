@@ -17,13 +17,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 @Controller
 @RequestMapping("/thread")
 public class ThreadController {
 
+
+    Logger logger = Logger.getLogger(MessageController.class.getName());
     private MessageRepo messageRepo;
     private ThreadService threadService;
     private CategoryService categoryService;
@@ -36,6 +42,16 @@ public class ThreadController {
         this.categoryService = categoryService;
         this.indexController = indexController;
         this.userService = userService;
+
+        try {
+            FileHandler fileHandler = new FileHandler("default.log");
+            logger.addHandler(fileHandler);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fileHandler.setFormatter(formatter);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        logger.info("Utworzono instancje Thread controllera");
     }
 
     @RequestMapping("/show/{threadId}")
@@ -76,7 +92,7 @@ public class ThreadController {
         Category category = categoryService.getCategoryById(threadModel.getCategoryId());
 
         threadService.createThread(threadModel,category, user);
-
+        logger.info("Utworzono nowy wątek na forum");
         return indexController.getAllCategories(model);
     }
     @RequestMapping("/delete/{threadId}")
@@ -113,7 +129,7 @@ public class ThreadController {
 
     }
 
-
+    @GetMapping
     public String showThread(Long threadId, Model model) {
         ThreadModel threadModel = new ThreadModel();
         Iterable<Message> messages = messageRepo.findAllByThreadId(threadId);

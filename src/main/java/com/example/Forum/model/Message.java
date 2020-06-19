@@ -1,9 +1,6 @@
 package com.example.Forum.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -12,10 +9,22 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
     private String messageContent;
-    private Long authorId;
+
     private Date creationDate;
     private Date modificationDate;
     private Long threadId;
+
+    @ManyToOne()
+    @JoinColumn( name = "id")
+    private User messageAuthor;
+
+    public User getMessageAuthor() {
+        return messageAuthor;
+    }
+
+    public void setMessageAuthor(User messageAuthor) {
+        this.messageAuthor = messageAuthor;
+    }
 
     public Long getMessageId() {
         return messageId;
@@ -33,13 +42,7 @@ public class Message {
         this.messageContent = messageContent;
     }
 
-    public Long getAuthorId() {
-        return authorId;
-    }
 
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
 
     public Date getCreationDate() {
         return creationDate;

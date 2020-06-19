@@ -20,10 +20,21 @@ public class MessageService {
     public ResponseEntity<Message> createMsg(Message message) {
         message.setCreationDate(new Date());
         message.setModificationDate(new Date());
+
+
         return  ResponseEntity.ok().body(messageRepo.save(message));
     }
 
     public Iterable<Message> findMessagesByThreadId(Long threadId){
         return messageRepo.findAllByThreadId(threadId);
+    }
+
+    public Message findMessageById (Long id){
+        return messageRepo.findByMessageId(id);
+    }
+
+    public void updateMessaga(Message message){
+        message.setModificationDate(new Date());
+        messageRepo.save(message);
     }
 }

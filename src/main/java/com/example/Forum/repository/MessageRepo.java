@@ -7,5 +7,7 @@ public interface MessageRepo  extends JpaRepository<Message, Long> {
 
     Iterable<Message> findAllByThreadId(Long id);
 
+    Message findByMessageId(Long id);
+
 
 }

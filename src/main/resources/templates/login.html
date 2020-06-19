@@ -10,7 +10,127 @@
 
 <body>
 
+
+<style>
+ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+overflow: hidden;
+background-color: #333;
+position: fixed;
+top: 0;
+width: 100%;
+box-shadow: 3px 3px 6px black;
+}
+
+li {
+float: left;
+}
+
+li a {
+display: block;
+color: white;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+}
+
+li a:hover:not(.active) {
+background-color: #111;
+}
+
+.active {
+background-color: blanchedalmond;
+color: #000000  ;
+}
+body{
+background: aliceblue;
+}
+
+
+
+.catwrap{
+margin-left: auto;
+margin-right: auto;
+width: 65%;
+padding-top: 60px;
+}
+
+
+
+a div{
+text-decoration:none;
+color: #111111;
+
+}
+
+a {
+text-decoration: none;
+color: #111111;
+}
+
+a span {
+text-decoration: none;
+color: #111111;
+}
+
+.btn {
+background-color: blanchedalmond;
+border: none;
+color: black;
+padding: 12px 16px;
+font-size: 16px;
+cursor: pointer;
+position: relative;
+align-content: flex-end;
+float: right;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+background-color: #fffbca;
+}
+
+.form{
+padding: 3px;
+border: solid 2px blanchedalmond;
+background: #efefef;
+margin-bottom: 15px;
+
+}
+.inp{
+margin: 20px;
+display: block;
+
+}
+input {
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+box-sizing: border-box;
+background-color: #f8f8f8;
+border-radius: 4px;
+border: 2px solid #ccc;
+}
+textarea {
+width: 100%;
+height: 150px;
+padding: 12px 20px;
+box-sizing: border-box;
+border: 2px solid #ccc;
+border-radius: 4px;
+background-color: #f8f8f8;
+resize: none;
+}
+
+
+
+</style>
+
+
 <div class="container">
+
     <form method="POST" action="/login" class="form-signin">
         <h2 class="form-heading">Log in</h2>
 
@@ -21,6 +141,9 @@
             <button class="btn btn-lg btn-primary btn-block" type="submit">Log In</button>
         </div>
     </form>
+    <a  th:href="@{/registration}" >
+        <span class="deltxt" >Zarejestruj się </span>
+    </a>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

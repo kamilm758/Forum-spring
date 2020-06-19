@@ -7,8 +7,15 @@ public class MessageModel {
     private String messageContent;
     private Long authorId;
     private Long threadId;
+    private Long messageId;
 
+    public Long getMessageId() {
+        return messageId;
+    }
 
+    public void setMessageId(Long messageId) {
+        this.messageId = messageId;
+    }
 
     public String getMessageContent() {
         return messageContent;

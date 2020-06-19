@@ -26,6 +26,17 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Thread> threads;
 
+    @OneToMany(mappedBy = "messageAuthor")
+    private List<Message> messages;
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
     public List<Thread> getThreads() {
         return threads;
     }

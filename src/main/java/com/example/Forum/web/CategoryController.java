@@ -17,10 +17,12 @@ import java.util.List;
 public class CategoryController {
     private CategoryService categoryService;
     private IndexController indexController;
+    private ThreadController threadController;
 
-    public CategoryController(CategoryService categoryService, IndexController indexController) {
+    public CategoryController(CategoryService categoryService, IndexController indexController, ThreadController threadController) {
         this.categoryService = categoryService;
         this.indexController = indexController;
+        this.threadController = threadController;
     }
 
     @RequestMapping("/create")
@@ -30,9 +32,9 @@ public class CategoryController {
     }
 
     @GetMapping("/getall")
-    public String getAll (){
+    public String getAll (Model model){
         Iterable<Category> categories = categoryService.getAll();
-        return  "home/index";
+        return threadController.showThread(7L,model);
     }
 
     @RequestMapping("/delete/{categoryId}")

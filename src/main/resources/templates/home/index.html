@@ -17,13 +17,14 @@
 <div th:replace="layout/main :: header"></div>
 <div class="catwrap">
     <div class="category" th:each="category : ${categories}">
+        <a th:href="@{/thread/new/{categoryId} (categoryId=${category.category.getCategoryId()})}" >
+            <button class="btn"><i class="fa fa-plus"></i> Nowy wątek</button>
+        </a>
         <div sec:authorize="hasAuthority('Administrator')">
         <a th:href="@{/category/delete/{categoryId} (categoryId=${category.category.getCategoryId()})}" >
             <button class="btndanger"><i class="fa fa-times" aria-hidden="true"></i> Usuń </button>
         </a>
-        <a th:href="@{/thread/new/{categoryId} (categoryId=${category.category.getCategoryId()})}" >
-            <button class="btn"><i class="fa fa-plus"></i> Nowy wątek</button>
-        </a>
+
         <a th:href="@{/category/edit/{categoryId} (categoryId=${category.category.getCategoryId()})}" >
             <button class="btn"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edytuj </button>
         </a>

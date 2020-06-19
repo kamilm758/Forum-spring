@@ -10,7 +10,9 @@
         <ul >
             <li><a class="active" href="/home/index">Home</a></li>
             <li><a href="/home/index">Najnowsze</a></li>
-
+            <li style="margin-left: 90%">  <form name="logoutForm" th:action="@{/logout}" method="post" >
+                <input  type="submit" value="Sign Out"/>
+            </form> </li>
         </ul>
         </div>
     </body>
